@@ -31,6 +31,15 @@
   font-size: 25px;
   margin: 150px 50px 300px 50px;
 }
-.col-md-4 {
-  text-align: center;
+.box {
+  background-color:cornflowerblue;
+  height: 200px;
+  width: 80%;
+  text-align: left;
+  overflow-y: scroll;
+  margin-top: 2% 0 2% 5%;
+  border-radius: 10px;
+}
+.inner-box {
+  margin: 2% 5% 2% 5%;
 }

@@ -1,0 +1,23 @@
+@{
+  Layout = "_Layout";
+}
+
+@model Library.Models.Copy
+
+@Html.ActionLink(" Home", "Index", "Home", null, new { @class="btn btn-info fa fa-home" })
+@Html.ActionLink(" All Copies", "Index", null, null, new { @class="btn btn-info fa fa-address-book-o" })
+<hr />
+<p>Add Copy</p>
+<hr />
+@using (Html.BeginForm())
+{
+  <table>
+    @Html.HiddenFor(model => model.OnShelf = true);
+    <tr>
+      <td>@Html.Label("Title")</td>
+      <td>@Html.TextBoxFor(model => model.Book.Title)</td>
+    </tr>
+  </table>
+  <button type="submit" class="btn btn-default fa" ><i class="fa-user-plus"> Add Book</i></button>
+}
+<hr />

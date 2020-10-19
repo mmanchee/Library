@@ -11,6 +11,6 @@ namespace Library.Models
 
     public int PatronId { get; set; }
     public string Name { get; set; }
-    public ICollection<BookPatron> Books { get; }
+    public virtual ICollection<BookPatron> Books { get; }
   }
 }

@@ -8,16 +8,16 @@ using Library.Models;
 
 namespace Library.Controllers
 {
-  public class BooksController : Controller
+  public class CopiesController : Controller
   {
     private readonly LibraryContext _db;
-    public BooksController(LibraryContext db)
+    public CopiesController(LibraryContext db)
     {
       _db=db;
     }
     public ActionResult Index()
     {
-      List<Book> model = _db.Books.OrderBy(x=>x.Title).ToList();
+      List<Copy> model = _db.Copies.OrderBy(x=>x.CopyId).ToList();
       return View(model);
     }
     public ActionResult Create()
@@ -25,42 +25,41 @@ namespace Library.Controllers
       return View();
     }
     [HttpPost]
-    public ActionResult Create(Book book)
+    public ActionResult Create(Copy copy)
     {
-      _db.Books.Add(book);
+      _db.Copies.Add(copy);
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
      public ActionResult Details(int id)
     {
-      Book model = _db.Books.FirstOrDefault(book => book.BookId == id);
+      Copy model = _db.Copies.FirstOrDefault(copy => copy.CopyId == id);
       return View(model);
     }
     public ActionResult Delete(int id)
     {
-      var thisBook = _db.Books.FirstOrDefault(x => x.BookId == id);
-      return View(thisBook);
+      var thisCopy = _db.Copies.FirstOrDefault(x => x.CopyId == id);
+      return View(thisCopy);
     }
     [HttpPost, ActionName("Delete")]
     public ActionResult DeleteConfirmed(int id)
     {
-      var thisBook = _db.Books.FirstOrDefault(x => x.BookId == id);
-      _db.Books.Remove(thisBook);
+      var thisCopy = _db.Copies.FirstOrDefault(x => x.CopyId == id);
+      _db.Copies.Remove(thisCopy);
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
     public ActionResult Edit(int id)
     {
-      var thisBook = _db.Books.FirstOrDefault(Books => Books.BookId == id);
-      return View(thisBook);
+      var thisCopy = _db.Copies.FirstOrDefault(Copies => Copies.CopyId == id);
+      return View(thisCopy);
     }
     [HttpPost]
-    public ActionResult Edit(Book Book)
+    public ActionResult Edit(Copy Copy)
     {
-      _db.Entry(Book).State = EntityState.Modified;
+      _db.Entry(Copy).State = EntityState.Modified;
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
   }
 }
-//make a add copy fuction 
