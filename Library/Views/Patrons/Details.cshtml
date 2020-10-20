@@ -17,7 +17,7 @@
 <hr />
 <div class="box">
   <div class="inner-box">
-    @if (Model.Books.Count == 0)
+    @if (ViewBag.Books.Count == 0)
     {
       <p>Their are no books in this history.</p>
     }
@@ -26,17 +26,11 @@
       <table>
         <tr>
           <th>Title</th>
-          <th>Checked Out</th>
-          <th>Checked In</th>
-          <th>Due Date</th>
         </tr>
-        @foreach (var book in Model.Books)
+        @foreach (var book in ViewBag.Books)
         {
           <tr>
-            <td>@Html.ActionLink(book.Book.Title, "Details", "Books", new { id = book.BookId })</td>
-            <td>@book.CheckOut</td>
-            <td>@book.CheckIn</td>
-            <tb>@book.Due</tb>
+            <td>@Html.ActionLink($"{book.Title}", "Details", "Books", new { id = book.BookId })</td>
           </tr>
         }
       </table>

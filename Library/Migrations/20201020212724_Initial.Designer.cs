@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Library.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    [Migration("20201020162234_UserAuth")]
-    partial class UserAuth
+    [Migration("20201020212724_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -117,12 +117,10 @@ namespace Library.Migrations
                     b.ToTable("Books");
                 });
 
-            modelBuilder.Entity("Library.Models.BookPatron", b =>
+            modelBuilder.Entity("Library.Models.Checkout", b =>
                 {
-                    b.Property<int>("BookPatronId")
+                    b.Property<int>("CheckoutId")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<int>("BookId");
 
                     b.Property<DateTime>("CheckIn");
 
@@ -134,13 +132,13 @@ namespace Library.Migrations
 
                     b.Property<int>("PatronId");
 
-                    b.HasKey("BookPatronId");
+                    b.HasKey("CheckoutId");
 
-                    b.HasIndex("BookId");
+                    b.HasIndex("CopyId");
 
                     b.HasIndex("PatronId");
 
-                    b.ToTable("BookPatron");
+                    b.ToTable("Checkouts");
                 });
 
             modelBuilder.Entity("Library.Models.Copy", b =>
@@ -298,15 +296,15 @@ namespace Library.Migrations
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("Library.Models.BookPatron", b =>
+            modelBuilder.Entity("Library.Models.Checkout", b =>
                 {
-                    b.HasOne("Library.Models.Book", "Book")
+                    b.HasOne("Library.Models.Copy", "Copy")
                         .WithMany("Patrons")
-                        .HasForeignKey("BookId")
+                        .HasForeignKey("CopyId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Library.Models.Patron", "Patron")
-                        .WithMany("Books")
+                        .WithMany("Copies")
                         .HasForeignKey("PatronId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

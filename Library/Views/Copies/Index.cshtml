@@ -6,7 +6,6 @@
 @model List<Library.Models.Copy>;
 
 @Html.ActionLink(" Home", "Index", "Home", null, new { @class="btn btn-info fa fa-home" })
-@Html.ActionLink(" Add", "Create", null, null, new { @class="btn btn-info fa fa-user-plus" })
 <hr />
 <p>Copies</p>
 <hr />
@@ -19,7 +18,7 @@
 
     @foreach (Copy copy in Model)
     {
-      <li>@Html.ActionLink($"{copy.Book.Title}", "Details", new { id = copy.CopyId })</li>
+      <li>@Html.ActionLink($"{copy.Book.Title}", "Details", "Books", new { id = copy.BookId })</li>
     }
   </div>  
 </div>

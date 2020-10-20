@@ -9,6 +9,10 @@
 <hr />
 <h2>About: </h2>
 <h4>@Html.DisplayFor(model => model.Description)</h4>
+<p>This book has @ViewBag.CopyCount copies.</p>
+
+@Html.ActionLink("Add Copy", "AddCopy", null, new { id = Model.BookId }, new { @class = "btn btn-info fa fa-plus"})
+@Html.ActionLink("Delete Copy", "DeleteCopy", null, new { id = Model.BookId }, new { @class = "btn btn-info fa fa-times"})
 
 @if (@Model.Authors.Count == 0)
 {
@@ -25,6 +29,6 @@ else
   }
 }
 
-<p>@Html.ActionLink("Back to books", "Index")</p>
-<p>@Html.ActionLink("Edit Book", "Edit", new { id = Model.BookId })</p>
-<p>@Html.ActionLink("Delete Book", "Delete", new { id = Model.BookId })</p>
+<Button>@Html.ActionLink("Back to books", "Index")</Button>
+<Button>@Html.ActionLink("Edit Book", "Edit", new { id = Model.BookId })</Button>
+<Button>@Html.ActionLink("Delete Book", "Delete", new { id = Model.BookId })</Button>

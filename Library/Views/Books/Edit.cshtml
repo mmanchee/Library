@@ -22,10 +22,13 @@
       <td>@Html.LabelFor(model => model.Description)</td>
       <td>@Html.EditorFor(model => model.Description)</td>
     </tr>
-    <tr>
-      <td>@Html.Label("Select Author")</td>
-      <td>@Html.DropDownList("AuthorId")</td>
-    </tr>
+    if (ViewBag.AuthorId > 0 )
+    {
+      <tr>
+        <td>@Html.Label("Select Author")</td>
+        <td>@Html.DropDownList("AuthorId")</td>
+      </tr>
+    }
   </table>
   <button type="submit" class="btn btn-info fa"><i class="fa-edit"> Save</i></button>
 }

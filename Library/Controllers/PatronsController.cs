@@ -6,38 +6,72 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Library.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace Library.Controllers
 {
+  [Authorize]
   public class PatronsController : Controller
   {
     private readonly LibraryContext _db;
-    public PatronsController(LibraryContext db)
+    private readonly UserManager<ApplicationUser> _userManager;
+    public PatronsController(UserManager<ApplicationUser> userManager, LibraryContext db)
     {
+      _userManager = userManager;
       _db = db;
     }
-    // INDEX ***********
-    public ActionResult Index()
+    public async Task<ActionResult> Index()
     {
-      List<Patron> model = _db.Patrons.OrderBy(x => x.Name).ToList();
-      return View(model);
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      Console.WriteLine(userId);
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      var userPatrons = _db.Patrons.Where(entry => entry.User.Id == currentUser.Id).ToList();
+      return View(userPatrons);
     }
+    // INDEX ***********
+    // public ActionResult Index()
+    // {
+    //   List<Patron> model = _db.Patrons.OrderBy(x => x.Name).ToList();
+    //   return View(model);
+    // }
     // CREATE ************
     public ActionResult Create()
     {
       return View();
     }
-    [HttpPost]
-    public ActionResult Create(Patron patron, int BookId)
+    public async Task<ActionResult> Create(Patron patron, int BookId)
     {
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      patron.User = currentUser;
       _db.Patrons.Add(patron);
       _db.SaveChanges();
       return RedirectToAction("Index");
+      
     }
+    // [HttpPost]
+    // public ActionResult Create(Patron patron, int BookId)
+    // {
+    //   _db.Patrons.Add(patron);
+    //   _db.SaveChanges();
+    //   return RedirectToAction("Index");
+    // }
     // DETAILS ************
     public ActionResult Details(int id)
     {
+      List<object> Books = new List<object>();
       Patron model = _db.Patrons.FirstOrDefault(x => x.PatronId == id);
+      List<Checkout> thisCopies = _db.Checkouts.Where(checkouts => checkouts.PatronId == id ).ToList();
+      foreach(var copy in thisCopies)
+      {
+        Copy fart = _db.Copies.FirstOrDefault(copies => copies.CopyId == copy.CopyId);
+        Book book = _db.Books.FirstOrDefault(books => books.BookId == fart.BookId);
+        Books.Add(book);
+      }
+      ViewBag.Books = Books;
       return View(model);
     }
     // DELETE *************
@@ -72,24 +106,26 @@ namespace Library.Controllers
     {
       Patron model = _db.Patrons.FirstOrDefault(patrons => patrons.PatronId == id);
       List<Book> books = _db.Books.OrderBy(x => x.Title).ToList();
-      foreach ( var book in books)
-      {
-
-      }
       ViewBag.Books = books;
       return View(model);
     }
     [HttpPost]
     public ActionResult AddBook(int BookId, int PatronId)
     {
-      if (BookId != 0)
+      Copy copy = _db.Copies.FirstOrDefault(copies => copies.BookId == BookId && copies.OnShelf == true);
+      if (copy.CopyId > 0)
       {
-        Copy copy = _db.Copies.FirstOrDefault(copies => copies.BookId == BookId && copies.OnShelf == true)
-        _db.Checkouts.Add()
-        _db.BookPatron.Add(new BookPatron() { BookId = BookId, PatronId = PatronId });
+        DateTime today = DateTime.Now;
+        copy.OnShelf = false;
+        _db.Checkouts.Add(new Checkout() { CopyId = copy.CopyId, PatronId = PatronId, CheckOut = today, Due = today.AddDays(5)});
+        _db.SaveChanges();
+        return RedirectToAction("Details", null, new { id = PatronId });
       }
-      _db.SaveChanges();
-      return RedirectToAction("Details", null, new { id = PatronId });
+      else
+      {
+        ViewBag.NotHere = "Book not available.";
+        return RedirectToAction("AddBook", null, new { id = PatronId });
+      }
     }
   }
 }
