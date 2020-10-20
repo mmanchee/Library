@@ -21,11 +21,17 @@
   font-size: 50px;
   color:rgb(202, 162, 162);
 }
+.sticky-top {
+  position: fixed;
+  top: 0;
+  width:100%;
+}
 .title-button {
   float: left;
 }
-#title {
-  
+#userinfo {
+  font-size: 15px;
+  float: right;
 }
 #render {
   font-size: 25px;

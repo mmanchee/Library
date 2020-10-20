@@ -1,9 +1,20 @@
 <div id="header">
-<nav class="navbar fixed-top navbar-light bg-light">
-      <a class="navbar-brand" href="\">The Library</a>
-      <button class="btn"><i class="fa fa-book-reader"></i>@Html.ActionLink("Patrons", "Index","Patrons")</button>
-      <button class="btn"><i class="fa fa-book"></i> @Html.ActionLink("Books", "Index","Books")</button>
-      <button class="btn"><i class="far fa-user"></i> @Html.ActionLink("Authors", "Index","Authors")</button>
-      <button class="btn"><i class="fa fa-cube"></i> @Html.ActionLink("Copies", "Index","Copies")</button>
+  <nav class="navbar fixed-top navbar-light bg-light">
+    <a class="navbar-brand" href="\">The Library</a>
+    <button class="btn"><i class="fa fa-book-reader"></i>@Html.ActionLink("Patrons", "Index","Patrons")</button>
+    <button class="btn"><i class="fa fa-book"></i> @Html.ActionLink("Books", "Index","Books")</button>
+    <button class="btn"><i class="far fa-user"></i> @Html.ActionLink("Authors", "Index","Authors")</button>
+    <button class="btn"><i class="fa fa-cube"></i> @Html.ActionLink("Copies", "Index","Copies")</button>
+    @if (User.Identity.IsAuthenticated)
+    {
+      <div id="userinfo">
+        @User.Identity.Name
+        @Html.ActionLink("Log Off", "Index","Account", null, new { @class = "btn btn-info"})
+      </div>
+    }
+    else
+    {
+      @Html.ActionLink(" Log in", "Login", "Account", null, new { @class = "btn btn-info fa fa-plus" })
+    }
     </nav>
-</div>
+  </div>

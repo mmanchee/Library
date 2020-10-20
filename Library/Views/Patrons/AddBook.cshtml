@@ -1,0 +1,36 @@
+@{
+  Layout = "_Layout";
+}
+
+@model Library.Models.Patron;
+
+@Html.ActionLink(" Home", "Index", "Home", null, new { @class="btn btn-info fa fa-home" })
+@Html.ActionLink(" My History", "Details", "Patrons", new { id = Model.PatronId }, new { @class="btn btn-info fa fa-cogs" })
+<hr />
+<p>@Html.Label("Book List")</p>
+<hr />
+<div class="box">
+  <div class="inner-box">
+    @if(ViewBag.Books.Count > 0)
+    {
+      <table>
+        <tr>
+          <th>Title</th>
+          <th>Checked Out</th>
+        </tr>
+        @foreach(var book in ViewBag.Books)
+        {
+          <tr>
+            <td>@Html.ActionLink($"{book.Title}", "Details", "Books", new { id = book.BookId })</td>
+            <td>@Html.ActionLink(" Add", "AddBook", "Patrons", new { id = book.BookId, patronId = Model.PatronId }, new { @calss = "btn btn-info fa fa-plus"})</td>
+          </tr>
+        }
+      </table>
+    }
+    else
+    {
+      <p>Their are no books in this history.</p>
+    }
+  </div>
+</div>
+<hr />

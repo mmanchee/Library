@@ -1,0 +1,46 @@
+@{
+  Layout = "_Layout";
+}
+
+@model Library.Models.Patron;
+
+@Html.ActionLink(" Home", "Index", "Home", null, new { @class="btn btn-info fa fa-home" })
+@Html.ActionLink(" All Patrons", "Index",null, null, new { @class="btn btn-info fa fa-cogs" })
+@Html.ActionLink(" Edit", "Edit", new { id = Model.PatronId }, new { @class="btn btn-info fa fa-edit" })
+@Html.ActionLink(" Delete", "Delete", new { id = Model.PatronId }, new { @class="btn btn-info fa fa-times" })
+@Html.ActionLink(" Add Book", "AddBook", new { id = Model.PatronId }, new { @class="btn btn-info fa fa-plus" })
+<hr />
+<p>@Html.DisplayFor(model => model.Name)'s Details</p>
+<hr />
+<p>@Html.Label("Name"): @Html.DisplayFor(model => model.Name)</p>
+<p>@Html.Label("Book History"):</p>
+<hr />
+<div class="box">
+  <div class="inner-box">
+    @if (Model.Books.Count == 0)
+    {
+      <p>Their are no books in this history.</p>
+    }
+    else
+    {
+      <table>
+        <tr>
+          <th>Title</th>
+          <th>Checked Out</th>
+          <th>Checked In</th>
+          <th>Due Date</th>
+        </tr>
+        @foreach (var book in Model.Books)
+        {
+          <tr>
+            <td>@Html.ActionLink(book.Book.Title, "Details", "Books", new { id = book.BookId })</td>
+            <td>@book.CheckOut</td>
+            <td>@book.CheckIn</td>
+            <tb>@book.Due</tb>
+          </tr>
+        }
+      </table>
+    }
+  </div>
+</div>
+<hr />
