@@ -31,8 +31,10 @@
   font-size: 25px;
   margin: 150px 50px 300px 50px;
 }
+/* Makes a scroll box */
 .box {
-  background-color:cornflowerblue;
+  background-color:cornflowerblue; 
+  color: white;
   height: 200px;
   width: 80%;
   text-align: left;
@@ -42,4 +44,7 @@
 }
 .inner-box {
   margin: 2% 5% 2% 5%;
+}
+a {
+  color: rgb(202, 162, 162);
 }

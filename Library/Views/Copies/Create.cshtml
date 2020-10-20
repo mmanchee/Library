@@ -12,12 +12,12 @@
 @using (Html.BeginForm())
 {
   <table>
-    @Html.HiddenFor(model => model.OnShelf = true);
+    @* @Html.HiddenFor(model => model.OnShelf = true); *@
     <tr>
       <td>@Html.Label("Title")</td>
       <td>@Html.TextBoxFor(model => model.Book.Title)</td>
     </tr>
   </table>
-  <button type="submit" class="btn btn-default fa" ><i class="fa-user-plus"> Add Book</i></button>
+  <button type="submit" class="btn btn-default fa"><i class="fa-user-plus"> Add Book</i></button>
 }
 <hr />

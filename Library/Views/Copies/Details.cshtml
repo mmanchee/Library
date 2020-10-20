@@ -1,28 +1,29 @@
-@{
+Copy Details
+@* @{
   Layout = "_Layout";
-}
+  }
 
-@model Library.Models.Copy;
+  @model Library.Models.Copy;
 
-<h2>Copy Details</h2>
-<hr />
-<h3>@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)</h3>
+  <h2>Copy Details</h2>
+  <hr />
+  <h3>@Html.DisplayNameFor(model => model.OnShelf): @Html.DisplayFor(model => model.OnShelf)</h3>
 
-@if(@Model.Items.Count == 0)
-{
-  <p>This Copy does not contain any items</p>
-}
-else
-{
-  <h4>Items the Copy contains:</h4>
-  <ul>
-  @foreach(var join in Model.Items)
+  @if(@Model.Book.Count == 0)
   {
-    <li>@join.Item.Description</li>
+  <p>This Copy does not contain any Patrons</p>
+  }
+  else
+  {
+  <h4>Patrons the Copy contains:</h4>
+  <ul>
+  @foreach(var join in Model.Patrons) // working on this copy class
+  {
+  <li>@join.Patron.Name</li>
   }
   </ul>
-}
+  }
 
-<p>@Html.ActionLink("Back to categories", "Index")</p>
-<p>@Html.ActionLink("Edit Category", "Edit", new { id = Model.CategoryId })</p>
-<p>@Html.ActionLink("Delete Category", "Delete", new { id = Model.CategoryId })</p>
+  <p>@Html.ActionLink("Back to patrons", "Index")</p>
+  <p>@Html.ActionLink("Edit Copy", "Edit", new { id = Model.CopyId })</p>
+  <p>@Html.ActionLink("Delete Copy", "Delete", new { id = Model.CopyId })</p> *@

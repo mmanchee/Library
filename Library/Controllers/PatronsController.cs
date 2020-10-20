@@ -1,4 +1,5 @@
 using System;
+using System.Buffers;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -13,11 +14,11 @@ namespace Library.Controllers
     private readonly LibraryContext _db;
     public PatronsController(LibraryContext db)
     {
-      _db=db;
+      _db = db;
     }
     public ActionResult Index()
     {
-      List<Patron> model = _db.Patrons.OrderBy(x=>x.Name).ToList();
+      List<Patron> model = _db.Patrons.OrderBy(x => x.Name).ToList();
       return View(model);
     }
     public ActionResult Create()
@@ -25,13 +26,13 @@ namespace Library.Controllers
       return View();
     }
     [HttpPost]
-    public ActionResult Create(Patron patron)
+    public ActionResult Create(Patron patron, int BookId)
     {
       _db.Patrons.Add(patron);
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
-     public ActionResult Details(int id)
+    public ActionResult Details(int id)
     {
       Patron model = _db.Patrons.FirstOrDefault(x => x.PatronId == id);
       return View(model);

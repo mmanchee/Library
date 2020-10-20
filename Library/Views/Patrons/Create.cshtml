@@ -13,18 +13,10 @@
 {
   <table>
     <tr>
-      <td>@Html.Label("Title")</td>
-      <td>@Html.TextBoxFor(model => model.Title)</td>
-    </tr>
-    <tr>
-      <td>@Html.Label("Description")</td>
-      <td>@Html.TextAreaFor(model => model.Description)</td>
-    </tr>
-    <tr>
-      <td>@Html.Label("Author")</td>
-      <td>@Html.DropDownList("AuthorId")</td>
+      <td>@Html.Label("Name")</td>
+      <td>@Html.TextBoxFor(model => model.Name)</td>
     </tr>
   </table>
-  <button type="submit" class="btn btn-default fa" ><i class="fa-user-plus"> Add Book</i></button>
+  <button type="submit" class="btn btn-default fa" ><i class="fa-user-plus"> Add Patron</i></button>
 }
 <hr />

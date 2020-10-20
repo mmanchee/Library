@@ -8,6 +8,20 @@
 
   
 <!-- Brainstorming
+Library
+Let's move on to a new program to catalog a library's books and let patrons check them out. Here are some user stories to get you started:
+
+Librarian:
+-Create, read, update, delete, and list books in the catalog, so that we can keep track of our inventory.
+-Search for a book by author or title, so that I can find a book when there are a lot of books in the library.
+-Enter multiple authors for a book, so that I can include accurate information in my catalog. (Hint: make an authors table and a books table with a many-to-many relationship.)
+-see a list of overdue books, so that I can call up the patron who checked them out and tell them to bring them back - OR ELSE!
+
+Patron:
+- Check a book out, so that I can take it home with me.
+- Know how many copies of a book are on the shelf, so that I can see if any are available. (Hint: make a copies table; a book should have many copies.)
+- See a history of all the books I checked out, so that I can look up the name of that awesome sci-fi novel I read three years ago. (Hint: make a checkouts table that is a join table between patrons and copies.)
+- Know when a book I checked out is due, so that I know when to return it.
 
  -->
 ### Specs
