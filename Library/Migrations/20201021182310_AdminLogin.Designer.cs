@@ -3,14 +3,16 @@ using System;
 using Library.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Library.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    partial class LibraryContextModelSnapshot : ModelSnapshot
+    [Migration("20201021182310_AdminLogin")]
+    partial class AdminLogin
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -74,11 +76,7 @@ namespace Library.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<string>("UserId");
-
                     b.HasKey("AuthorId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Authors");
                 });
@@ -110,11 +108,7 @@ namespace Library.Migrations
 
                     b.Property<string>("Title");
 
-                    b.Property<string>("UserId");
-
                     b.HasKey("BookId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Books");
                 });
@@ -282,13 +276,6 @@ namespace Library.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Library.Models.Author", b =>
-                {
-                    b.HasOne("Library.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-                });
-
             modelBuilder.Entity("Library.Models.AuthorBook", b =>
                 {
                     b.HasOne("Library.Models.Author", "Author")
@@ -300,13 +287,6 @@ namespace Library.Migrations
                         .WithMany("Authors")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Library.Models.Book", b =>
-                {
-                    b.HasOne("Library.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Library.Models.Checkout", b =>

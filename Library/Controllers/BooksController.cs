@@ -22,41 +22,30 @@ namespace Library.Controllers
       _userManager = userManager;
       _db = db;
     }
-    public ActionResult Index()
-    {
-      List<Book> model = _db.Books.OrderBy(x => x.Title).ToList();
-      return View(model);
-    }
-    // public async Task<ActionResult> Index()
+    // public ActionResult Index()
     // {
-    //   var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-    //   var currentUser = await _userManager.FindByIdAsync(userId);
-    //   var userBooks = _db.Books.Where(entry => entry.User.Id == currentUser.Id).ToList();
-    //   return View(userBooks);
+    //   List<Book> model = _db.Books.OrderBy(x => x.Title).ToList();
+    //   return View(model);
     // }
+    public async Task<ActionResult> Index()
+    {
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      var userBooks = _db.Books.Where(entry => entry.User.Id == currentUser.Id).ToList();
+      return View(userBooks);
+    }
     public ActionResult Create()
     {
       ViewBag.AuthorId = new SelectList(_db.Authors, "AuthorId", "Name");
       return
       View();
     }
-    // [HttpPost]
-    // public async Task<ActionResult> Create(Book book, int AuthorId)
-    // {
-    //   var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-    //   var currentUser = await _userManager.FindByIdAsync(userId);
-    //   book.User = currentUser;
-    //   _db.Books.Add(book);
-    //   if (AuthorId != 0)
-    //   {
-    //     _db.AuthorBook.Add(new AuthorBook() { BookId = book.BookId, AuthorId = AuthorId });
-    //   }
-    //   _db.SaveChanges();
-    //   return RedirectToAction("Index");
-    // }
     [HttpPost]
-    public ActionResult Create(Book book, int AuthorId)
+    public async Task<ActionResult> Create(Book book, int AuthorId)
     {
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      book.User = currentUser;
       _db.Books.Add(book);
       if (AuthorId != 0)
       {
@@ -65,6 +54,17 @@ namespace Library.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
+    // [HttpPost]
+    // public ActionResult Create(Book book, int AuthorId)
+    // {
+    //   _db.Books.Add(book);
+    //   if (AuthorId != 0)
+    //   {
+    //     _db.AuthorBook.Add(new AuthorBook() { BookId = book.BookId, AuthorId = AuthorId });
+    //   }
+    //   _db.SaveChanges();
+    //   return RedirectToAction("Index");
+    // }
     public ActionResult Details(int id)
     {
       Book model = _db.Books.FirstOrDefault(book => book.BookId == id);
