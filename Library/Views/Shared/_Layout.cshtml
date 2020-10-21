@@ -12,7 +12,9 @@
 <body>
   <div class="container">
     @Html.Partial("Header")
+
     <div id="render">
+      @await Html.PartialAsync("_AdminActionsPartial")
       @RenderBody()
     </div>
     @Html.Partial("Footer")

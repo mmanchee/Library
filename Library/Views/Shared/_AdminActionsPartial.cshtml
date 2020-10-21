@@ -1,0 +1,20 @@
+@using Microsoft.AspNetCore.Identity
+@using Library.Models
+
+@inject SignInManager<ApplicationUser> signInManager
+@inject UserManager<ApplicationUser> userManager
+
+@if (signInManager.IsSignedIn(User))
+{
+    var currentUser = await userManager.GetUserAsync(User);
+
+    var isAdmin = currentUser != null
+        && await userManager.IsInRoleAsync(
+            currentUser,
+            Constants.AdministratorRole);
+
+    if (isAdmin)
+    {
+      @Html.ActionLink(" Manage Users", "Index", "ManageUsers", null, new { @class = "btn btn-info fa fa-gear"})
+    }
+}
