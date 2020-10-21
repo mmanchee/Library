@@ -1,4 +1,4 @@
-@using Microsoft.AspNetCore.Identity
+@* @using Microsoft.AspNetCore.Identity
 @using Library.Models
 
 @inject SignInManager<ApplicationUser> signInManager
@@ -16,5 +16,6 @@
     if (isAdmin)
     {
       @Html.ActionLink(" Manage Users", "Index", "ManageUsers", null, new { @class = "btn btn-info fa fa-gear"})
+      @Html.ActionLink(" Edit Authors", "Index", "Books", null, new { @class = "btn btn-info fa fa-Book"})
     }
-}
+} *@

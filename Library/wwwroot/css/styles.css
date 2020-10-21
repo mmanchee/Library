@@ -29,13 +29,15 @@
 .title-button {
   float: left;
 }
-#userinfo {
+.userinfo {
+  letter-spacing: 1px;
+  font-weight: 500;
   font-size: 15px;
   float: right;
 }
 #render {
   font-size: 25px;
-  margin: 150px 50px 300px 50px;
+  margin-top: 200px;
 }
 /* Makes a scroll box */
 .box {
@@ -55,5 +57,12 @@ a {
   color: rgb(202, 162, 162);
 }
 .std-btn {
+  margin-right: auto;
+  margin-left: auto;
+  letter-spacing: 1px;
+  font-weight: 500;
   font-size: 15px;
+}
+.btn {
+  margin: 0 5px 0 5px;
 }

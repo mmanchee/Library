@@ -3,6 +3,12 @@ using Microsoft.AspNetCore.Identity;
 using Library.Models;
 using System.Threading.Tasks;
 using Library.ViewModels;
+using System;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Security.Claims;
 
 namespace Library.Controllers
 {
@@ -18,10 +24,12 @@ namespace Library.Controllers
         _signInManager = signInManager;
         _db = db;
     }
-
-    public ActionResult Index()
+    public async Task<ActionResult> Index()
     {
-        return View();
+        var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        var currentUser = await _userManager.FindByIdAsync(userId);
+        var userHistory = _db.Checkouts.Where(entry => entry.User.Id == currentUser.Id).ToList();
+        return View(userHistory);
     }
 
     public IActionResult Register()

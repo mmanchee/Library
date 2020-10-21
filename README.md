@@ -5,7 +5,12 @@
 #### By _**Mike Manchee, Johnny Duverseau, and Natalie Murphy**_
 
 ## Description
+<!-- 
+add for each loop to account contrller index to find book id and book name 
+Good Luck this was hard. 
 
+add check out to admin side 
+ -->
   
 Library
 Let's move on to a new program to catalog a library's books and let patrons check them out. Here are some user stories to get you started:
@@ -40,12 +45,13 @@ Checkin
 Views
 (Libraian)
 know what is late 
-add books 
-update books
+add books - add books [x]
+update books - edit books [x] 
+admin see who is a user [x]
 (Patron)
 see history of checkouts
-upcoming due dates
-browse books to checkout
+upcoming due dates 
+browse books to checkout - catalog of books that you can view but cannot edit 
 
 Librarian:
 -Create, read, update, delete, and list books in the catalog, so that we can keep track of our inventory.
